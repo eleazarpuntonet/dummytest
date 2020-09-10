@@ -4,16 +4,16 @@ import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
-	selector: 'app-tagresult',
+	selector   : 'app-tagresult',
 	templateUrl: './tagresult.component.pug',
-	styleUrls: ['./tagresult.component.sass']
+	styleUrls  : ['./tagresult.component.sass']
 })
 export class TagresultComponent implements OnInit {
 	postItems: any[];
-	loading: boolean;
-	tag: string;
+	loading  : boolean;
+	tag      : string;
 	constructor(
-		private dummyservice: DummyserviceService,
+		private dummyservice  : DummyserviceService,
 		private activatedRoute: ActivatedRoute
 	) { 
 		this.loading = true
