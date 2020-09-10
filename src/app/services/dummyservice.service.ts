@@ -11,7 +11,11 @@ export class DummyserviceService {
 	
 	constructor(
 		private http: HttpClient) { 
+		// Sobreescribir esta variable en caso de que 
+		// la aplicacion arroje algun error relacionado
+		// a autenticacion de API
 		this.appId = '5f59e862f4d3050c5f331454';
+		
 		this.headers = new HttpHeaders({
 			'app-id': this.appId
 		})
