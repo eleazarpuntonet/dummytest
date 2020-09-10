@@ -1,0 +1,57 @@
+p-card
+    p-header((click)="getPostComments(post.id)")
+        img([src]="post.image")
+    .p-card-title((click)="userInfo(post.owner.id)") {{post.owner | fullname}}
+    .p-card-subtitle {{ post.publishDate | date:'short' }}
+    .card_content {{ post.text }}
+    p-footer
+        .pfooter
+            .badges
+                .p-tag(*ngFor=" let tag of post.tags",(click)="gotoTag(tag)") {{ tag }}
+            .comments
+                p-button(
+                    (click)="getPostComments(post.id)",
+                    label      = "Likes",
+                    styleClass = "p-button-help",
+                    [badge]    = "post.likes",
+                    badgeClass = "p-badge-danger")
+
+    .cardLoaderSpinner(*ngIf="postApiCall")
+        p-progressSpinner(strokeWidth='2')
+
+ngTemplate(*ngIf="dialogUser")
+    p-dialog([header]="userDetails | fullname", [(visible)]="dialogUser",[style]="{width: '600px'}")
+        p-card.userDetails
+            p-header
+                img([src]="userDetails.picture")
+            .p-card-title {{userDetails.email}}
+            .p-card-subtitle {{ userDetails.phone }}
+            .card_content
+                .contentRow
+                    .dataBox
+                        .labelBox Member Since
+                        .valueBox {{ userDetails.registerDate | date:'yyy MMMM dd'}}
+                    .dataBox
+                        .labelBox Gender
+                        .valueBox {{ userDetails.gender }}
+                    .dataBox
+                        .labelBox Birthdate
+                        .valueBox {{ userDetails.dateOfBirth | date:'yyy MMMM dd' }}
+
+                .contentRow
+                    .dataBox
+                        .labelBox Address
+                        .valueBox {{ userDetails.location | address }}
+
+ngTemplate(*ngIf="dialogComments")
+    p-dialog(header="Comments", [(visible)]="dialogComments", [style]="{width: '300px'}")
+        .commentsBox.flexColumn(*ngIf="comments.length > 0")
+            .comment(*ngFor="let comment of comments")
+                .commenHeader.flexRow
+                    .commentAutorPic
+                        img([src]="comment.owner.picture")
+                    .commentAutorName.flexColumn {{comment.owner | fullname}}
+                .commentContent {{ comment.message }}
+                .commentDate {{ comment.publishDate | date:'yyy MMMM dd' }}
+        .noComments(*ngIf="!comments.length > 0") No comments founded
+        

@@ -1,0 +1,8 @@
+.p-grid.postContainer
+    div.p-md-12.p-sm-12.loadingSpinner(*ngIf="loading")
+        p-progressSpinner(strokeWidth='5')
+    .p-lg-6.p-lg-offset-3.p-md-8.p-md-offset-2(*ngIf="!loading")
+        app-postcard(
+            *ngFor="let post of postItems",
+            (reload)="reloadData($event)", 
+            [post]="post")
